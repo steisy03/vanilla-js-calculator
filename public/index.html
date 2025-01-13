@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="./asset/index.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" id="display" class="form-control display" readonly />
+      <div class="row g-2">
+        <div class="col-3">
+          <button id="btnParenthesisLeft" class="btn btn-warning btn-custom">(</button>
+        </div>
+        <div class="col-3">
+          <button id="btnParenthesisRight" class="btn btn-warning btn-custom">)</button>
+        </div>
+        <div class="col-3">
+          <button id="btnErase" class="btn btn-danger btn-custom">◄</button>
+        </div>
+        <div class="col-3">
+          <button id="btnDelete" class="btn btn-danger btn-custom">C</button>
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-3">
+          <button id="btnSeven" class="btn btn-light btn-custom">7</button>
+        </div>
+        <div class="col-3">
+          <button id="btnEight" class="btn btn-light btn-custom">8</button>
+        </div>
+        <div class="col-3">
+          <button id="btnNine" class="btn btn-light btn-custom">9</button>
+        </div>
+        
+        <div class="col-3">
+          <button id="btnPlus" class="btn btn-warning btn-custom">+</button>
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-3">
+          <button id="btnFour" class="btn btn-light btn-custom">4</button>
+        </div>
+        <div class="col-3">
+          <button id="btnFive" class="btn btn-light btn-custom">5</button>
+        </div>
+        <div class="col-3">
+          <button id="btnSix" class="btn btn-light btn-custom">6</button>
+        </div>
+        <div class="col-3">
+          <button id="btnDif" class="btn btn-warning btn-custom">-</button>
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-3">
+          <button id="btnOne" class="btn btn-light btn-custom">1</button>
+        </div>
+        <div class="col-3">
+          <button id="btnTwo" class="btn btn-light btn-custom">2</button>
+        </div>
+        <div class="col-3">
+          <button id="btnThree" class="btn btn-light btn-custom">3</button>
+        </div>
+        <div class="col-3">
+          <button id="btnDiv" class="btn btn-warning btn-custom">/</button>
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-3">
+          <button id="btnZero" class="btn btn-light btn-custom">0</button>
+        </div>
+        <div class="col-3">
+          <button id="btnPoint" class="btn btn-light btn-custom">.</button>
+        </div>
+        <div class="col-3">
+          <button id="btnEqual" class="btn btn-success btn-custom">=</button>
+        </div>
+        <div class="col-3">
+          <button id="btnMult" class="btn btn-warning btn-custom">*</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app/bundle.js"></script>
+  </body>
+</html>
