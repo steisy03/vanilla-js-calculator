@@ -91,7 +91,10 @@ function appendToDisplay(value) {
     return; // Do not append operators if the last character is an open parenthesis
   }
 
-  
+  if (lastChar === "(" && value === ")") {
+    this.display.value += '0'+value; 
+    return; // Do not append operators if the last character is an open parenthesis
+  }
 
   this.display.value += value;
 }
