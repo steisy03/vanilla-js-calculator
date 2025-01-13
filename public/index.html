@@ -16,10 +16,14 @@
       <input type="text" id="display" class="form-control display" readonly />
       <div class="row g-2">
         <div class="col-3">
-          <button id="btnParenthesisLeft" class="btn btn-warning btn-custom">(</button>
+          <button id="btnParenthesisLeft" class="btn btn-warning btn-custom">
+            (<span id="leftParenthesisSpan" class ="span-font-size"></span>
+          </button>
         </div>
         <div class="col-3">
-          <button id="btnParenthesisRight" class="btn btn-warning btn-custom">)</button>
+          <button id="btnParenthesisRight" class="btn btn-warning btn-custom">
+            )
+          </button>
         </div>
         <div class="col-3">
           <button id="btnErase" class="btn btn-danger btn-custom">◄</button>
@@ -38,7 +42,7 @@
         <div class="col-3">
           <button id="btnNine" class="btn btn-light btn-custom">9</button>
         </div>
-        
+
         <div class="col-3">
           <button id="btnPlus" class="btn btn-warning btn-custom">+</button>
         </div>
