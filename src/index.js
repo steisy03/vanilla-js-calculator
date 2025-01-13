@@ -36,7 +36,8 @@ window.onload = function () {
 
 //Add key events to the calculator
 window.document.addEventListener("keydown", function (event) {
-  event.preventDefault();
+  eventHandlers[event.key] ? event.preventDefault() : null;
+  
   const validKeys = /^[0-9+\-*/().]$/;
   if (validKeys.test(event.key)) {
     appendToDisplay(event.key);
