@@ -82,9 +82,16 @@ function appendToDisplay(value) {
     return;
   }
 
+  if (value === "(" && !operators.includes(lastChar)) {
+    this.display.value += '*'+value; // Allow parentheses to be added next to operators
+    return;
+  }
+
   if (lastChar === "(" && operators.includes(value)) {
     return; // Do not append operators if the last character is an open parenthesis
   }
+
+  
 
   this.display.value += value;
 }
