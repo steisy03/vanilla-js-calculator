@@ -1,4 +1,3 @@
-let display, leftParenthesisSpan = null;
 let leftParenthesis = 0;
 
 const eventHandlers = {
@@ -25,8 +24,6 @@ const eventHandlers = {
 };
 
 window.onload = function () {
-  this.display = document.getElementById("display");
-  this.leftParenthesisSpan = document.getElementById("leftParenthesisSpan");
   Object.keys(eventHandlers).forEach((id) => {
     const button = document.getElementById(eventHandlers[id]?.btn);
     button.addEventListener("click", eventHandlers[id]?.function);
@@ -71,10 +68,14 @@ function addClickedEffect(element) {
 }
 
 function appendToDisplay(value) {
-  const lastChar = this.display.value.slice(-1);
+  const lastChar = display.value.slice(-1);
   const operators = ["/", "*", "-", "+", "."];
   const parentheses = ["(", ")"];
   const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+  if (!operators.includes(value) && !numbers.includes(value) && !parentheses.includes(value)) {
+    return; //Do Not append the value if it is not a number, operator or parentheses
+  }
 
   if (operators.includes(value) && operators.includes(lastChar)) {
     return; // Do not append the value if the last character is also an operator
@@ -82,83 +83,67 @@ function appendToDisplay(value) {
 
   if(value === "(") {
     leftParenthesis++;
-    this.leftParenthesisSpan.innerText = leftParenthesis;
+    leftParenthesisSpan.innerText = leftParenthesis;
 
-    if(numbers.includes(lastChar) || lastChar.value === ")" || lastChar.length != 0) {
-      this.display.value += '*'+value; //Add * when parentheses is next to a number
+    if(lastChar.length != 0 && lastChar !== "(" && (numbers.includes(lastChar) || lastChar === ")")){
+      display.value += '*'+value; //Add * when parentheses is next to a number or a ")"
       return;
+    }  
+
+  }
+
+  if(value === ")") {
+    if(leftParenthesis === 0) {
+      return; // Do not append the value if there are no open parentheses
     }
 
-    this.display.value += value; // Allow parentheses to be added next to operators
-    return;
+    if (lastChar === ")" && operators.includes(value)) {
+      return; // Do not append operators if the last character is an open parenthesis
+    }
 
-  }
+    if (operators.includes(lastChar)) {
+      return; // Do not append the value if the last character is an operator
+    }
 
-  if (value !== "(" && !operators.includes(lastChar) && lastChar.length != 0) {
-    this.display.value += '*'+value; //Add * when parentheses is next to a number
-    return;
-  }
-
-  if (operators.includes(lastChar) && parentheses.includes(value)) {
-    this.display.value += value; // Allow parentheses to be added next to operators
-    return;
-  }
-
-  if (lastChar === "(" && operators.includes(value)) {
-    return; // Do not append operators if the last character is an open parenthesis
-  }
-
-  if (lastChar === "(" && value === ")") {
     leftParenthesis--;
-    this.leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis + ' ' + value;
-    this.display.value += '0'+value; 
-    return; // Add 0 when the last character is '(' and the next character is ')'
+    leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis;
+
+    if(lastChar === "(") {
+      display.value += '0'+value; 
+      return; // Add 0 when the last character is '(' and the next character is ')'
+    }
+   
   }
 
-  if (leftParenthesis === 0) {
-    this.leftParenthesisSpan.innerText = '';
-  }
-  
-  if (lastChar === ")" && leftParenthesis > 0) {
-    leftParenthesis--;
-    this.leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis + ' ' + value;
-    this.display.value += value;
-    return;
-  }
-
-  if(value === ")" && leftParenthesis === 0) {
-    return; // Do not append the value if there are no open parentheses
-  }
-
-  this.display.value += value;
+  display.value += value;
 }
 
 function clearDisplay() {
-  this.display.placeholder = "";
-  this.display.value = "";
-  this.leftParenthesis = 0;
-  this.leftParenthesisSpan.innerText = "";
+  display.placeholder = "";
+  display.value = "";
+  leftParenthesis = 0;
+  leftParenthesisSpan.innerText = "";
 }
 
 function eraseLastDisplay() {
-  this.display.value = this.display.value.slice(0, -1);
-  this.display.placeholder = "";
+  display.value = display.value.slice(0, -1);
+  display.placeholder = "";
 }
 
 function calculateResult() {
-  if (!this.display.value) {
+  if (!display.value) {
     return;
   }
   const validExpression = /^[0-9+\-*/().]+$/;
-  if (validExpression.test(this.display.value)) {
+  if (validExpression.test(display.value)) {
     try {
-      this.display.value = eval(this.display.value);
+      display.value = eval(display.value);
     } catch (e) {
-      this.display.value = "";
-      this.display.placeholder = "Error";
+      display.value = "";
+      display.placeholder = "Error";
     }
   } else {
-    this.display.value = "";
-    this.display.placeholder = "Error";
+    display.value = "";
+    display.placeholder = "Error";
   }
 }
