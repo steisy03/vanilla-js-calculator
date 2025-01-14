@@ -130,6 +130,9 @@ function eraseLastDisplay() {
   if(lastChar === "(") {
     leftParenthesis--;
     leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis;
+  } else if(lastChar === ")") {
+    leftParenthesis++;
+    leftParenthesisSpan.innerText = leftParenthesis;
   }
   display.value = display.value.slice(0, -1);
   display.placeholder = "";
