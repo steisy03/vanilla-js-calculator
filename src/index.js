@@ -126,6 +126,11 @@ function clearDisplay() {
 }
 
 function eraseLastDisplay() {
+  const lastChar = display.value.slice(-1);
+  if(lastChar === "(") {
+    leftParenthesis--;
+    leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis;
+  }
   display.value = display.value.slice(0, -1);
   display.placeholder = "";
 }
