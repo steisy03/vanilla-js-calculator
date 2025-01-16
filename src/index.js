@@ -1,5 +1,8 @@
 let leftParenthesis = 0;
 
+const operators = ["/", "*", "-", "+", "."];
+const parentheses = ["(", ")"];
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const eventHandlers = {
   7: { function: () => appendToDisplay("7"), btn: "btnSeven" },
   8: { function: () => appendToDisplay("8"), btn: "btnEight" },
@@ -36,7 +39,7 @@ window.onload = function () {
 //Add key events to the calculator
 window.document.addEventListener("keydown", function (event) {
   eventHandlers[event.key] ? event.preventDefault() : null;
-  
+
   const validKeys = /^[0-9+\-*/().]$/;
   if (validKeys.test(event.key)) {
     appendToDisplay(event.key);
@@ -69,11 +72,12 @@ function addClickedEffect(element) {
 
 function appendToDisplay(value) {
   const lastChar = display.value.slice(-1);
-  const operators = ["/", "*", "-", "+", "."];
-  const parentheses = ["(", ")"];
-  const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-  if (!operators.includes(value) && !numbers.includes(value) && !parentheses.includes(value)) {
+  if (
+    !operators.includes(value) &&
+    !numbers.includes(value) &&
+    !parentheses.includes(value)
+  ) {
     return; //Do Not append the value if it is not a number, operator or parentheses
   }
 
@@ -81,19 +85,22 @@ function appendToDisplay(value) {
     return; // Do not append the value if the last character is also an operator
   }
 
-  if(value === "(") {
+  if (value === "(") {
     leftParenthesis++;
     leftParenthesisSpan.innerText = leftParenthesis;
 
-    if(lastChar.length != 0 && lastChar !== "(" && (numbers.includes(lastChar) || lastChar === ")")){
-      display.value += '*'+value; //Add * when parentheses is next to a number or a ")"
+    if (
+      lastChar.length != 0 &&
+      lastChar !== "(" &&
+      (numbers.includes(lastChar) || lastChar === ")")
+    ) {
+      display.value += "*" + value; //Add * when parentheses is next to a number or a ")"
       return;
-    }  
-
+    }
   }
 
-  if(value === ")") {
-    if(leftParenthesis === 0) {
+  if (value === ")") {
+    if (leftParenthesis === 0) {
       return; // Do not append the value if there are no open parentheses
     }
 
@@ -106,13 +113,13 @@ function appendToDisplay(value) {
     }
 
     leftParenthesis--;
-    leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis;
+    leftParenthesisSpan.innerText =
+      leftParenthesis === 0 ? "" : leftParenthesis;
 
-    if(lastChar === "(") {
-      display.value += '0'+value; 
+    if (lastChar === "(") {
+      display.value += "0" + value;
       return; // Add 0 when the last character is '(' and the next character is ')'
     }
-   
   }
 
   display.value += value;
@@ -127,10 +134,11 @@ function clearDisplay() {
 
 function eraseLastDisplay() {
   const lastChar = display.value.slice(-1);
-  if(lastChar === "(") {
+  if (lastChar === "(") {
     leftParenthesis--;
-    leftParenthesisSpan.innerText = leftParenthesis === 0 ? '' : leftParenthesis;
-  } else if(lastChar === ")") {
+    leftParenthesisSpan.innerText =
+      leftParenthesis === 0 ? "" : leftParenthesis;
+  } else if (lastChar === ")") {
     leftParenthesis++;
     leftParenthesisSpan.innerText = leftParenthesis;
   }
